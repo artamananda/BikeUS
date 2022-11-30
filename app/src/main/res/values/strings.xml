@@ -1,6 +1,15 @@
 <resources>
     <string name="app_name">BikeUS</string>
-    <string name="editTextEmail">Email</string>
-    <string name="editTextPassword">Password</string>
+    <string name="textViewEmail">Email</string>
+    <string name="textViewPassword">Password</string>
     <string name="buttonLogin">Login</string>
+    <string name="buttonLogout">Logout</string>
+    <string name="timeLeft">Sisa Waktu</string>
+    <string name="greet">Halo, %1d selalu jaga keselamatan ya!</string>
+    <string name="use">Sedang Anda Gunakan</string>
+    <string name="bikeNumber">Nomor Sepeda</string>
+    <string name="returnBike">Kembalikan Sepeda</string>
+    <string name="bicycle">Bicycle</string>
+    <string name="account">Account</string>
+    <string name="history">History</string>
 </resources>
