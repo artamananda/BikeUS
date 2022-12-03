@@ -22,7 +22,7 @@ public class MainActivity extends AppCompatActivity {
         binding.bottomNavigationView.setOnItemSelectedListener(item -> {
             switch (item.getItemId()){
                 case R.id.bicycle:
-                    replaceFragment(new BicycleFragment());
+                    replaceFragment(new AddBicycleFragment());
                     break;
                 case R.id.account:
                     replaceFragment(new AccountFragment());

@@ -12,11 +12,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.BikeUS"
         tools:targetApi="31">
-<!--        <activity android:name=".LoginActivity"-->
-<!--            android:label="Login"-->
-<!--            android:theme="@style/Theme.AppCompat.NoActionBar"/>-->
+
         <activity
-            android:name=".MainActivity"
+            android:name=".SplashActivity"
             android:theme="@style/Theme.AppCompat.NoActionBar"
             android:exported="true">
             <intent-filter>
@@ -29,6 +27,15 @@
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
+        <activity android:name=".LoginActivity"
+            android:label="Login"
+            android:theme="@style/Theme.AppCompat.NoActionBar"/>
+        <activity android:name=".RegisterActivity"
+            android:label="Register"
+            android:theme="@style/Theme.AppCompat.NoActionBar"/>
+        <activity android:name=".MainActivity"
+            android:label="Home"
+            android:theme="@style/Theme.AppCompat.NoActionBar"/>
     </application>
 
 </manifest>
