@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.Html;
 import android.text.Spanned;
+import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -20,8 +21,6 @@ public class LoginActivity extends AppCompatActivity {
     //Declaration EditTexts
     EditText editTextEmail;
     EditText editTextPassword;
-
-    private Context context;
 
     //Declaration Button
     Button buttonLogin;
@@ -55,7 +54,7 @@ public class LoginActivity extends AppCompatActivity {
                     //Check Authentication is successful or not
                     if (currentUser != null) {
                         Snackbar.make(buttonLogin, "Successfully Logged in!", Snackbar.LENGTH_LONG).show();
-
+                        User.setEmail(Email);
                         //User Logged in Successfully Launch You home screen activity
                         Intent intent=new Intent(LoginActivity.this,MainActivity.class);
                         startActivity(intent);
@@ -67,6 +66,11 @@ public class LoginActivity extends AppCompatActivity {
                         Snackbar.make(buttonLogin, "Failed to log in , please try again", Snackbar.LENGTH_LONG).show();
 
                     }
+                } else {
+
+                    //User Logged in Failed
+                    Snackbar.make(buttonLogin, "Failed to log in , please try again", Snackbar.LENGTH_LONG).show();
+
                 }
             }
         });
@@ -117,9 +121,9 @@ public class LoginActivity extends AppCompatActivity {
         String Password = editTextPassword.getText().toString();
 
         //Handling validation for Email field
-        if (!android.util.Patterns.EMAIL_ADDRESS.matcher(Email).matches()) {
+        if (!Patterns.EMAIL_ADDRESS.matcher(Email).matches()) {
             valid = false;
-            Toast.makeText(context, "Please enter valid email!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(), "Please enter valid email!", Toast.LENGTH_SHORT).show();
         } else {
             valid = true;
         }
@@ -127,13 +131,13 @@ public class LoginActivity extends AppCompatActivity {
         //Handling validation for Password field
         if (Password.isEmpty()) {
             valid = false;
-            Toast.makeText(context, "Please enter valid password!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(), "Please enter valid password!", Toast.LENGTH_SHORT).show();
         } else {
             if (Password.length() > 5) {
                 valid = true;
             } else {
                 valid = false;
-                Toast.makeText(context, "Password is to short!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), "Password is to short!", Toast.LENGTH_SHORT).show();
             }
         }
 
