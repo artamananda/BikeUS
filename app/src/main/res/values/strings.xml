@@ -7,7 +7,7 @@
     <string name="buttonLogin">Login</string>
     <string name="buttonLogout">Logout</string>
     <string name="timeLeft">Sisa Waktu</string>
-    <string name="greet">Halo, %1d selalu jaga keselamatan ya!</string>
+    <string name="greet">Halo, %1$s selalu jaga keselamatan ya!</string>
     <string name="use">Sedang Anda Gunakan</string>
     <string name="bikeNumber">Nomor Sepeda</string>
     <string name="returnBike">Kembalikan Sepeda</string>
@@ -17,6 +17,7 @@
     <string name="inputBikeCode">Masukkan Nomor Sepeda</string>
     <string name="buttonAdd">Sewa Sepeda</string>
     <string name="user">%1$s</string>
+    <string name="number">US1234</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

@@ -4,7 +4,8 @@ public class User {
     public String id;
     public String email;
     public String password;
-    public static String emailStatic = "";
+    private static String emailStatic = "";
+    private static boolean rentStatus = false;
 
     public User(String id, String email, String password) {
         this.id = id;
@@ -19,4 +20,13 @@ public class User {
     public static void setEmail(String email){
         emailStatic = email;
     }
+
+    public static boolean getRentStatus(){
+        return rentStatus;
+    }
+
+    public static void setRentStatus(boolean status){
+        rentStatus = status;
+    }
+
 }

@@ -22,12 +22,21 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-        replaceFragment(new BicycleFragment());
+        SqliteHelper sqliteHelper = new SqliteHelper(this);
+        if(sqliteHelper.isBikeExistInEmail(User.getEmail()) == true){
+            replaceFragment(new BicycleFragment());
+        } else{
+            replaceFragment(new AddBicycleFragment());
+        }
 
         binding.bottomNavigationView.setOnItemSelectedListener(item -> {
             switch (item.getItemId()){
                 case R.id.bicycle:
-                    replaceFragment(new AddBicycleFragment());
+                    if(sqliteHelper.isBikeExistInEmail(User.getEmail()) == true){
+                        replaceFragment(new BicycleFragment());
+                    } else{
+                        replaceFragment(new AddBicycleFragment());
+                    }
                     break;
                 case R.id.account:
                     replaceFragment(new AccountFragment());

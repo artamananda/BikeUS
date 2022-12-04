@@ -27,12 +27,17 @@ public class SqliteHelper extends SQLiteOpenHelper {
     //COLUMN password
     public static final String KEY_PASSWORD = "password";
 
+    public static final String KEY_BIKEID = "bike_id";
+    public static final String KEY_TIME_START = "time_start";
+
     //SQL for creating users table
     public static final String SQL_TABLE_USERS = " CREATE TABLE " + TABLE_USERS
             + " ( "
             + KEY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
             + KEY_EMAIL + " TEXT, "
-            + KEY_PASSWORD + " TEXT"
+            + KEY_PASSWORD + " TEXT, "
+            + KEY_BIKEID + " TEXT, "
+            + KEY_TIME_START + " TEXT "
             + " );";
 
 
@@ -109,5 +114,77 @@ public class SqliteHelper extends SQLiteOpenHelper {
 
         //if email does not exist return false
         return false;
+    }
+
+    public boolean isBikeExistInEmail(String email){
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.query(TABLE_USERS,// Selecting Table
+                new String[]{KEY_BIKEID},//Selecting columns want to query
+                KEY_EMAIL + "=?",
+                new String[]{email},//Where clause
+                null, null, null);
+
+        if (cursor != null && cursor.moveToFirst()&& cursor.getCount()>0 && !cursor.getString(0).equals("")) {
+            //if cursor has value then in user database there is user associated with this given email so return true
+            return true;
+        }
+
+        return false;
+    }
+
+    public void addBike(String bikeId, String time){
+        SQLiteDatabase db = this.getWritableDatabase();
+        //create content values to insert
+        ContentValues values = new ContentValues();
+        //Put email in  @values
+        values.put(KEY_BIKEID, bikeId);
+        //Put password in  @values
+        values.put(KEY_TIME_START, time);
+        int todo = db.update(TABLE_USERS, values, KEY_EMAIL + "=?", new String[]{User.getEmail()});
+
+    }
+
+    public void delBike(){
+        SQLiteDatabase db = this.getWritableDatabase();
+        //create content values to insert
+        ContentValues values = new ContentValues();
+        //Put email in  @values
+        values.put(KEY_BIKEID, "");
+        //Put password in  @values
+        values.put(KEY_TIME_START, "");
+        int todo = db.update(TABLE_USERS, values, KEY_EMAIL + "=?", new String[]{User.getEmail()});
+
+    }
+
+    public String getKeyBikeid(){
+        String res = "";
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.query(TABLE_USERS,// Selecting Table
+                new String[]{KEY_BIKEID},//Selecting columns want to query
+                KEY_EMAIL + "=?",
+                new String[]{User.getEmail()},//Where clause
+                null, null, null);
+
+        if (cursor != null && cursor.moveToFirst()&& cursor.getCount()>0) {
+            //if cursor has value then in user database there is user associated with this given email
+             res = cursor.getString(0);
+        }
+        return res;
+    }
+
+    public String getKeyTimeStart(){
+        String res = "";
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.query(TABLE_USERS,// Selecting Table
+                new String[]{KEY_TIME_START},//Selecting columns want to query
+                KEY_EMAIL + "=?",
+                new String[]{User.getEmail()},//Where clause
+                null, null, null);
+
+        if (cursor != null && cursor.moveToFirst()&& cursor.getCount()>0) {
+            //if cursor has value then in user database there is user associated with this given email
+            res = cursor.getString(0);
+        }
+        return res;
     }
 }

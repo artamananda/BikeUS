@@ -1,5 +1,6 @@
 package unsri.bikeus;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -7,13 +8,18 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Toast;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 /**
  * A simple {@link Fragment} subclass.
  * Use the {@link AddBicycleFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class AddBicycleFragment extends Fragment {
+public class AddBicycleFragment extends Fragment implements View.OnClickListener {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -23,6 +29,10 @@ public class AddBicycleFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+
+    Button myButton;
+    SqliteHelper sqliteHelper;
+    EditText editText;
 
     public AddBicycleFragment() {
         // Required empty public constructor
@@ -59,6 +69,29 @@ public class AddBicycleFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_add_bicycle, container, false);
+        View myView = inflater.inflate(R.layout.fragment_add_bicycle, container, false);
+        editText = (EditText) getActivity().findViewById(R.id.editTextNumber);
+        myButton = (Button) myView.findViewById(R.id.buttonRentBike);
+        myButton.setOnClickListener(this);
+        return myView;
+    }
+
+    @Override
+    public void onClick(View view) {
+        editText = (EditText) getActivity().findViewById(R.id.editTextNumber);
+        String number = editText.getText().toString();
+        if(Bike.authenticate(number) == true){
+            User.setRentStatus(true);
+            SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+            Date date = new Date();
+            String time = formatter.format(date);
+            sqliteHelper = new SqliteHelper(getContext());
+            sqliteHelper.addBike(number, time);
+            Intent intent = new Intent(getActivity(), MainActivity.class);
+            startActivity(intent);
+            getActivity().finish();
+        } else{
+            Toast.makeText(getContext(), "Bicycle not found or has been rent", Toast.LENGTH_SHORT).show();
+        }
     }
 }
