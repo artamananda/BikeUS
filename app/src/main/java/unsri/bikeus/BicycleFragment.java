@@ -74,6 +74,12 @@ public class BicycleFragment extends Fragment implements View.OnClickListener {
         View myView = inflater.inflate(R.layout.fragment_bicycle, container, false);
         TextView tv2 = (TextView) myView.findViewById(R.id.textViewTime);
         String txt = sqliteHelper.getKeyTimeStart();
+        if(txt.equals("0 jam 0 menit")){
+            Intent intent = new Intent(getActivity(), MainActivity.class);
+            startActivity(intent);
+            getActivity().finish();
+            return myView;
+        }
         try {
             tv2.setText(diffTime(txt));
         } catch (ParseException e) {
@@ -93,7 +99,7 @@ public class BicycleFragment extends Fragment implements View.OnClickListener {
         long diff = date1.getTime() + (2000 * 60 * 60) - date2.getTime();
         double diffInHours = diff / ((double) 1000 * 60 * 60);
         int hours = (int)diffInHours;
-        int minutes = (int)(diffInHours - (int)diffInHours) * 60;
+        int minutes = (int)((diffInHours - (int)diffInHours) * 60);
         return hours + " jam " + minutes + " menit ";
     }
 

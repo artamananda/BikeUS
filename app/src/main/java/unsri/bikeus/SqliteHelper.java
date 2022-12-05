@@ -73,6 +73,9 @@ public class SqliteHelper extends SQLiteOpenHelper {
         //Put password in  @values
         values.put(KEY_PASSWORD, user.password);
 
+        values.put(KEY_BIKEID, "");
+        values.put(KEY_TIME_START,"");
+
         // insert row
         long todo_id = db.insert(TABLE_USERS, null, values);
     }
